@@ -312,7 +312,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     ap.add_argument("--classes-from-subdirs", action="store_true")
     ap.add_argument("--seed", type=int, default=42)
 
-    # геометрия и окклюзии оставляем константно-настраиваемыми флагами (без лишних)
+    # геометрия и окклюзии
     ap.add_argument("--scale-range", type=float, nargs=2, default=(0.5, 1.6), metavar=("MIN", "MAX"))
     ap.add_argument("--rotation-range", type=float, nargs=2, default=(-40.0, 40.0), metavar=("MIN", "MAX"))
     ap.add_argument("--perspective", type=float, default=0.06)
