@@ -1,0 +1,11 @@
+/runs
+/backgrounds
+/real_ds
+/synthetic_dataset
+/templates
+тз.pdf
+
+yolo11n-seg.pt
+/hackathon_api
+
+train.py
