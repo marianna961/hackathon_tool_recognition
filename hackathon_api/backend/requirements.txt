@@ -1,0 +1,11 @@
+fastapi==0.115.0
+uvicorn==0.30.6
+sqlalchemy==2.0.35
+psycopg2-binary==2.9.9
+minio==7.2.8
+ultralytics==8.2.102
+opencv-python==4.10.0.84
+numpy==1.26.4
+python-dotenv==1.0.1
+pydantic==2.9.2
+python-multipart==0.0.9

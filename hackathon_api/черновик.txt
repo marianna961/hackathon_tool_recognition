@@ -1,0 +1,80 @@
+fastapi==0.115.0
+uvicorn==0.30.6
+sqlalchemy==2.0.35
+psycopg2-binary==2.9.9
+minio==7.2.8
+ultralytics==8.2.102
+opencv-python==4.10.0.84
+numpy==1.26.4
+python-dotenv==1.0.1
+pydantic==2.9.2
+torch==2.4.1
+torchvision==0.19.1
+
+
+рабочий:
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - MINIO_URL=http://minio:9000
+      - MINIO_KEY=minioadmin
+      - MINIO_SECRET=minioadmin
+      - MINIO_BUCKET=evidence
+      - MATCH_THRESHOLD=90.0
+      - DATA_DIR=/app/data
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - minio
+      - db
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  minio_data:
+  pgdata:
+
+
+FROM python:3.10-slim-bullseye
+
+WORKDIR /app
+
+# Install system dependencies including OpenGL libraries
+RUN apt-get update && apt-get install -y \
+    libgl1 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir torch==2.4.1 torchvision==0.19.1 --index-url https://download.pytorch.org/whl/cpu
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY main.py .
+COPY best.pt .
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
