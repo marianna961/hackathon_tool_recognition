@@ -48,7 +48,7 @@ const FileUploader = ({ onResultsReady, isProcessing, setIsProcessing }) => {
               onChange={(e) => setUploadType(e.target.value)}
             />
             <span className="option-text">
-              <strong>📷 Одно изображение</strong>
+              <strong>Одно изображение</strong>
               <small>Быстрая проверка одного фото</small>
             </span>
           </label>
@@ -61,7 +61,7 @@ const FileUploader = ({ onResultsReady, isProcessing, setIsProcessing }) => {
               onChange={(e) => setUploadType(e.target.value)}
             />
             <span className="option-text">
-              <strong>🖼️ Несколько изображений</strong>
+              <strong>Несколько изображений</strong>
               <small>Выберите несколько файлов</small>
             </span>
           </label>
@@ -74,7 +74,7 @@ const FileUploader = ({ onResultsReady, isProcessing, setIsProcessing }) => {
               onChange={(e) => setUploadType(e.target.value)}
             />
             <span className="option-text">
-              <strong>📁 ZIP архив</strong>
+              <strong>ZIP архив</strong>
               <small>Загрузите папку с изображениями</small>
             </span>
           </label>
@@ -123,7 +123,7 @@ const FileUploader = ({ onResultsReady, isProcessing, setIsProcessing }) => {
       </div>
 
       <div className="upload-tips">
-        <h4>💡 Рекомендации:</h4>
+        <h4>Рекомендации:</h4>
         <ul>
           <li>Загрузите изображения с 1-11 инструментами для тестирования</li>
           <li>Модель найдет изображения, где комплект не полный</li>
