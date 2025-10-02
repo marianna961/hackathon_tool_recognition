@@ -13,10 +13,8 @@ from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
 def build_sam_generator(
     checkpoint: Path,
     model_type: str = "vit_b",
-    device: str = "auto",
+    device: str = "cpu",
 ) -> SamAutomaticMaskGenerator:
-    if device == "auto":
-        device = "cuda" if torch.cuda.is_available() else "cpu"
     sam = sam_model_registry[model_type](checkpoint=str(checkpoint))
     sam.to(device)
     return SamAutomaticMaskGenerator(
@@ -30,7 +28,6 @@ def build_sam_generator(
 
 
 # mask processing 
-
 def _iou_xyxy(a: Tuple[int, int, int, int], b: Tuple[int, int, int, int]) -> float:
     ax1, ay1, ax2, ay2 = a
     bx1, by1, bx2, by2 = b
