@@ -63,19 +63,42 @@ export const uploadZipFolder = async (zipFile) => {
   });
 };
 
-// Get model information
+// api.js
+export const predictSingle = async (formData) => {
+  return api.post('/predict/single', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+};
+
+export const predictBatch = async (formData) => {
+  return api.post('/predict/batch', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+};
+
+export const predictZip = async (formData) => {
+  return api.post('/predict/zip', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+};
+
 export const getModelInfo = async () => {
   return api.get('/model/info');
 };
 
-// Get transaction history
-export const getTransactions = async (limit = 10) => {
-  return api.get(`/transactions?limit=${limit}`);
-};
+// // Get model information
+// export const getModelInfo = async () => {
+//   return api.get('/model/info');
+// };
 
-// Get specific transaction
-export const getTransaction = async (transactionId) => {
-  return api.get(`/transactions/${transactionId}`);
-};
+// // Get transaction history
+// export const getTransactions = async (limit = 10) => {
+//   return api.get(`/transactions?limit=${limit}`);
+// };
+
+// // Get specific transaction
+// export const getTransaction = async (transactionId) => {
+//   return api.get(`/transactions/${transactionId}`);
+// };
 
 export default api;
